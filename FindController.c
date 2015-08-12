@@ -10,3 +10,7 @@
 #include <signal.h>
 #include <errno.h>
 #include <sys/stat.h>
+
+void main(){
+	printf("hello world");
+}
