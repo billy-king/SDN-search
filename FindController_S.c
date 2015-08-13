@@ -146,7 +146,7 @@ void service_reply(int connectfd , int port){
 				//printf("File list\n");
 				strcat(controllerIP , FloodlightIP);
 				strcat(controllerIP , controllerPort);
-				printf("Controller IP = %s\n" , controllerIP);
+				printf("Set-Controller IP = %s\n" , controllerIP);
 				execlp("ovs-vsctl" , "ovs-vsctl" ,"set-controller" , "br0", controllerIP , NULL);
 				dup2(stdo , STDOUT_FILENO);
 			}
@@ -158,7 +158,7 @@ void service_reply(int connectfd , int port){
 				//printf("File list\n");
 				strcat(controllerIP , RyuIP);
 				strcat(controllerIP , controllerPort);
-				printf("Controller IP = %s\n" , controllerIP);
+				printf("Set-Controller IP = %s\n" , controllerIP);
 				execlp("ovs-vsctl" ,"ovs-vsctl" , "set-controller" , "br0", controllerIP , NULL);
 				dup2(stdo , STDOUT_FILENO);
 			}
@@ -169,7 +169,7 @@ void service_reply(int connectfd , int port){
 				//printf("File list\n");
 				strcat(controllerIP , ODLIP);
 				strcat(controllerIP , controllerPort);
-				printf("Controller IP = %s\n" , controllerIP);
+				printf("Set-Controller IP = %s\n" , controllerIP);
 				execlp("ovs-vsctl" , "ovs-vsctl" ,"set-controller" , "br0", controllerIP , NULL);
 				dup2(stdo , STDOUT_FILENO);
 			}
@@ -180,7 +180,7 @@ void service_reply(int connectfd , int port){
 				//printf("File list\n");
 				strcat(controllerIP , ONOSIP);
 				strcat(controllerIP , controllerPort);
-				printf("Controller IP = %s\n" , controllerIP);
+				printf("Set-Controller IP = %s\n" , controllerIP);
 				execlp("ovs-vsctl" , "ovs-vsctl" ,"set-controller" , "br0", controllerIP , NULL);
 				dup2(stdo , STDOUT_FILENO);
 			}
