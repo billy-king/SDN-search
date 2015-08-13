@@ -10,7 +10,7 @@
 #include <signal.h>
 #include <errno.h>
 #include <sys/stat.h>
-
+#define MAXLINE 2048
 void service_reply(int , int);
 void sig_handle(int);
 
