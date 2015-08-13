@@ -100,8 +100,8 @@ void service_reply(int connectfd , int port){
 	int stdo = dup(STDOUT_FILENO);
 	char controllerIP[80] = "tcp:";
 	char FloodlightIP[] = "192.168.11.1";
-	char ODLIP[] = "192.168.11.2";
-	char RyuIP[] = "192.168.11.3";
+	char RyuIP[] = "192.168.11.2";
+	char ODLIP[] = "192.168.11.3";
 	char ONOSIP[] = "192.168.11.4";
 	char controllerPort[] = ":6633";
 	while(1){
@@ -146,8 +146,8 @@ void service_reply(int connectfd , int port){
 				//printf("File list\n");
 				strcat(controllerIP , FloodlightIP);
 				strcat(controllerIP , controllerPort);
-				printf("IP = %s\n" , controllerIP);
-				execlp("ovs-vsctl" , "set-controller" ,"set-controller" , "br0", controllerIP , NULL);
+				printf("Controller IP = %s\n" , controllerIP);
+				execlp("ovs-vsctl" , "ovs-vsctl" ,"set-controller" , "br0", controllerIP , NULL);
 				dup2(stdo , STDOUT_FILENO);
 			}
 		}
@@ -158,8 +158,8 @@ void service_reply(int connectfd , int port){
 				//printf("File list\n");
 				strcat(controllerIP , RyuIP);
 				strcat(controllerIP , controllerPort);
-				printf("IP = %s\n" , controllerIP);
-				execlp("ovs-vsctl" ,"set-controller" , "set-controller" , "br0", controllerIP , NULL);
+				printf("Controller IP = %s\n" , controllerIP);
+				execlp("ovs-vsctl" ,"ovs-vsctl" , "set-controller" , "br0", controllerIP , NULL);
 				dup2(stdo , STDOUT_FILENO);
 			}
 		}
@@ -169,8 +169,8 @@ void service_reply(int connectfd , int port){
 				//printf("File list\n");
 				strcat(controllerIP , ODLIP);
 				strcat(controllerIP , controllerPort);
-				printf("IP = %s\n" , controllerIP);
-				execlp("ovs-vsctl" , "set-controller" ,"set-controller" , "br0", controllerIP , NULL);
+				printf("Controller IP = %s\n" , controllerIP);
+				execlp("ovs-vsctl" , "ovs-vsctl" ,"set-controller" , "br0", controllerIP , NULL);
 				dup2(stdo , STDOUT_FILENO);
 			}
 		}
@@ -180,8 +180,8 @@ void service_reply(int connectfd , int port){
 				//printf("File list\n");
 				strcat(controllerIP , ONOSIP);
 				strcat(controllerIP , controllerPort);
-				printf("IP = %s\n" , controllerIP);
-				execlp("ovs-vsctl" , "set-controller" ,"set-controller" , "br0", controllerIP , NULL);
+				printf("Controller IP = %s\n" , controllerIP);
+				execlp("ovs-vsctl" , "ovs-vsctl" ,"set-controller" , "br0", controllerIP , NULL);
 				dup2(stdo , STDOUT_FILENO);
 			}
 		}
