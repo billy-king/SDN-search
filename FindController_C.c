@@ -62,7 +62,7 @@ void get_service(FILE *fp , int serv_fd){
 				len = strlen(instr[token_num]);
 				if(len > 0 && instr[token_num][len - 1] == '\n')
 					instr[token_num][len - 1] = '\0';
-				//printf("%s\n" , instr[token_num]);
+				printf("%s\n" , instr[token_num]);
 				token_num += 1;
 				instr_ptr = strtok(NULL , " ");
 			}

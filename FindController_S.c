@@ -13,6 +13,15 @@
 #define MAXLINE 2048
 void service_reply(int , int);
 void sig_handle(int);
+typedef struct{
+	int pid;
+	char IP[20];
+	uint16_t PORT;
+}client_info;
+
+
+client_info client[20];
+int client_num = 0;
 
 
 int main(int argc , char *argv[]){
@@ -108,7 +117,7 @@ void service_reply(int connectfd , int port){
 					break;
 			}
 		}
-		//printf("%s\n" , recv_buff);
+		printf("%s\n" , recv_buff);
 
 		//split receive instruction with space
 		instr_ptr = strtok(recv_buff , " ");

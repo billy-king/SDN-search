@@ -5,4 +5,4 @@ all:
 	gcc FindController_C.c -o ./client_fold/client
 clean:
 	rm -rf server_fold
-	rm -rf server_fold
+	rm -rf client_fold
