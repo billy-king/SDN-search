@@ -46,7 +46,7 @@ void get_service(FILE *fp , int serv_fd){
 	char instr[5][MAXLINE];
 	char send_buff[MAXLINE] , recv_buff[MAXLINE] , send_copy[MAXLINE];
 	while(1){
-		printf("[C]hange dir , [S]how file , [D]ownload file [U]pload file [E]xit:\n");
+		printf("[F]loodlight , [R]yu , [O]pendaylight O[N]OS [E]xit:\n");
 		//init buff to zero
 		bzero(&send_buff , sizeof(send_buff));
 		bzero(&send_copy , sizeof(send_copy));
@@ -67,7 +67,7 @@ void get_service(FILE *fp , int serv_fd){
 				token_num += 1;
 				instr_ptr = strtok(NULL , " ");
 			}
-			if(strcmp(instr[0] , "C") == 0){
+			if(strcmp(instr[0] , "F") == 0){
 				write(serv_fd  , send_buff , sizeof(send_buff));
 				bzero(&send_buff , sizeof(send_buff));
 				if((n = read(serv_fd , recv_buff , MAXLINE)) == 0){
@@ -78,7 +78,40 @@ void get_service(FILE *fp , int serv_fd){
 				bzero(&recv_buff , sizeof(recv_buff));
 				break;
 			}
-			if(strcmp(instr[0] , "S") == 0){
+			if(strcmp(instr[0] , "F") == 0){
+				write(serv_fd  , send_buff , sizeof(send_buff));
+				bzero(&send_buff , sizeof(send_buff));
+				if((n = read(serv_fd , recv_buff , MAXLINE)) == 0){
+					printf("str_cli: server terminated prematurely"); 
+					exit(0);
+				}
+				fputs(recv_buff , stdout);
+				bzero(&recv_buff , sizeof(recv_buff));
+				break;
+			}
+			if(strcmp(instr[0] , "R") == 0){
+				write(serv_fd  , send_buff , sizeof(send_buff));
+				bzero(&send_buff , sizeof(send_buff));
+				if((n = read(serv_fd , recv_buff , MAXLINE)) == 0){
+					printf("str_cli: server terminated prematurely"); 
+					exit(0);
+				}
+				fputs(recv_buff , stdout);
+				bzero(&recv_buff , sizeof(recv_buff));
+				break;
+			}
+			if(strcmp(instr[0] , "O") == 0){
+				write(serv_fd  , send_buff , sizeof(send_buff));
+				bzero(&send_buff , sizeof(send_buff));
+				if((n = read(serv_fd , recv_buff , MAXLINE)) == 0){
+					printf("str_cli: server terminated prematurely"); 
+					exit(0);
+				}
+				fputs(recv_buff , stdout);
+				bzero(&recv_buff , sizeof(recv_buff));
+				break;
+			}
+			if(strcmp(instr[0] , "N") == 0){
 				write(serv_fd  , send_buff , sizeof(send_buff));
 				bzero(&send_buff , sizeof(send_buff));
 				if((n = read(serv_fd , recv_buff , MAXLINE)) == 0){
@@ -92,61 +125,6 @@ void get_service(FILE *fp , int serv_fd){
 			if(strcmp(instr[0] , "E") == 0){
 				close(serv_fd);
 				exit(1);
-			}
-			if(strcmp(instr[0] , "D") == 0){
-				if((fp = fopen(instr[1] , "w+")) == NULL)
-					printf("Open file error!! Error:%s\n", strerror(errno));
-				write(serv_fd  , send_buff , sizeof(send_buff));
-				bzero(&send_buff , sizeof(send_buff));
-				int file_size;
-				read(serv_fd , recv_buff , sizeof(recv_buff));
-				file_size = atoi(recv_buff);
-				printf("file_size = %d\n" , file_size);
-				bzero(&recv_buff , sizeof(recv_buff));
-				int recv_size;
-				while(file_size > 0){
-					recv_size = read(serv_fd , recv_buff , sizeof(recv_buff));
-					if(file_size >=2048)
-						fwrite(recv_buff , 1 ,  recv_size , fp);
-					else
-						fwrite(recv_buff , 1 ,  file_size , fp);
-					file_size -= sizeof(recv_buff);
-					bzero(&recv_buff , sizeof(recv_buff));
-					//printf("file_size = %d\n" , file_size);
-				}
-				fclose(fp);
-				read(serv_fd , recv_buff , sizeof(recv_buff));
-				printf("%s" , recv_buff);
-				bzero(&recv_buff , sizeof(recv_buff));
-				bzero(&send_buff , sizeof(send_buff));
-				break;
-			}
-			if(strcmp(instr[0] , "U") == 0){
-				int file_size;
-				int send_size;
-				write(serv_fd  , send_buff , sizeof(send_buff));
-				bzero(&send_buff , sizeof(send_buff));
-				if((fp = fopen(instr[1] , "rb")) == NULL){
-					printf("Open file error!! Error:%s\n", strerror(errno));
-				}
-				printf("Sending File:[%s]\n" , instr[1]);
-				fseek(fp, 0, SEEK_END);
-				file_size = ftell(fp);
-				fseek(fp, 0, SEEK_SET);
-				sprintf(send_buff, "%d", file_size);
-				write(serv_fd , send_buff , sizeof(send_buff));
-				bzero(&send_buff , sizeof(send_buff));
-				while((send_size=fread(send_buff, sizeof(char), 2048, fp)) != 0){
-					if(write(serv_fd , send_buff , sizeof(send_buff)) < 0){
-						fprintf(stderr , "Write Error!!");
-						break;
-					}
-					bzero(&send_buff , sizeof(send_buff));
-	      		}
-	      		fclose(fp);
-	      		printf("Close File:[%s]\n" , instr[1]);
-				printf("Upload Success!!\n");
-				break;
 			}
 		}
 	}

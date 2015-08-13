@@ -98,6 +98,12 @@ void service_reply(int connectfd , int port){
 	char *instr_ptr;
 	char instr[5][MAXLINE];
 	int stdo = dup(STDOUT_FILENO);
+	char controllerIP[80] = "tcp:";
+	char FloodlightIP[] = "192.168.11.1";
+	char ODLIP[] = "192.168.11.2";
+	char RyuIP[] = "192.168.11.3";
+	char ONOSIP[] = "192.168.11.4";
+	char controllerPort[] = ":6633";
 	while(1){
 		//init buff to zero
 		bzero(&send_buff , sizeof(send_buff));
@@ -117,7 +123,7 @@ void service_reply(int connectfd , int port){
 					break;
 			}
 		}
-		printf("%s\n" , recv_buff);
+		printf("recv_buff = %s\n" , recv_buff);
 
 		//split receive instruction with space
 		instr_ptr = strtok(recv_buff , " ");
@@ -134,82 +140,50 @@ void service_reply(int connectfd , int port){
 			instr_ptr = strtok(NULL , " ");
 		}
 
-		if(strcmp(instr[0] , "C") == 0){
-			char cwd[256];
-			getcwd(cwd , 256);
-			if(strcmp(instr[1] , "..") == 0){
-				char *index;
-				index = rindex(cwd , '/');
-				cwd[(int)(index - cwd)] = '\0';
-				printf("%s\n" , cwd);
+		if(strcmp(instr[0] , "F") == 0){
+			if(fork() == 0){
+				dup2(connectfd , STDOUT_FILENO);
+				//printf("File list\n");
+				strcat(controllerIP , FloodlightIP);
+				strcat(controllerIP , controllerPort);
+				printf("IP = %s\n" , controllerIP);
+				execlp("ovs-vsctl" , "set-controller" ,"set-controller" , "br0", controllerIP , NULL);
+				dup2(stdo , STDOUT_FILENO);
 			}
-			else{
-				strcat(cwd , "/");
-				strcat(cwd , instr[1]);
-			}
-			chdir(cwd);
-			dup2(connectfd , STDOUT_FILENO);
-			printf("Success Change dir to %s\n" , cwd);
-			dup2(stdo , STDOUT_FILENO);
 		}
-		if(strcmp(instr[0] , "S") == 0){
+		if(strcmp(instr[0] , "R") == 0){
 			//dup2(connectfd , STDOUT_FILENO);
 			if(fork() == 0){
 				dup2(connectfd , STDOUT_FILENO);
 				//printf("File list\n");
-				execlp("ovs-vsctl" , "set-controller" , "br0", "tcp:192.168.190.149:6633" , NULL);
+				strcat(controllerIP , RyuIP);
+				strcat(controllerIP , controllerPort);
+				printf("IP = %s\n" , controllerIP);
+				execlp("ovs-vsctl" ,"set-controller" , "set-controller" , "br0", controllerIP , NULL);
 				dup2(stdo , STDOUT_FILENO);
 			}
 		}
-		if(strcmp(instr[0] , "D") == 0){
-			int file_size;
-			int send_size;
-			if((fp = fopen(instr[1] , "rb")) == NULL){
+		if(strcmp(instr[0] , "O") == 0){
+			if(fork() == 0){
 				dup2(connectfd , STDOUT_FILENO);
-				printf("Open file error!! Error:%s\n", strerror(errno));
+				//printf("File list\n");
+				strcat(controllerIP , ODLIP);
+				strcat(controllerIP , controllerPort);
+				printf("IP = %s\n" , controllerIP);
+				execlp("ovs-vsctl" , "set-controller" ,"set-controller" , "br0", controllerIP , NULL);
 				dup2(stdo , STDOUT_FILENO);
 			}
-			printf("Sending File:%s\n" , instr[1]);
-			fseek(fp, 0, SEEK_END);
-			file_size = ftell(fp);
-			fseek(fp, 0, SEEK_SET);
-			sprintf(send_buff, "%d", file_size);
-			write(connectfd , send_buff , sizeof(send_buff));
-			bzero(&send_buff , sizeof(send_buff));
-			while((send_size=fread(send_buff, sizeof(char), 2048, fp)) != 0){
-				if(write(connectfd , send_buff , sizeof(send_buff)) < 0){
-					fprintf(stderr , "Write Error!!");
-					break;
-				}
-				bzero(&send_buff , sizeof(send_buff));
-      		}
-      		fclose(fp);
-      		printf("Close %s\n" , instr[1]);
-      		dup2(connectfd , STDOUT_FILENO);
-			printf("Download Success!!\n");
-			dup2(stdo , STDOUT_FILENO);
 		}
-		if(strcmp(instr[0] , "U") == 0){
-			printf("%s\n" , instr[1]);
-			if((fp = fopen(instr[1] , "w+")) == NULL)
-				printf("Open file error!! Error:%s\n", strerror(errno));
-			int file_size;
-			read(connectfd , recv_buff , sizeof(recv_buff));
-			file_size = atoi(recv_buff);
-			printf("file_size = %d\n" , file_size);
-			bzero(&recv_buff , sizeof(recv_buff));
-			int recv_size;
-			while(file_size > 0){
-				recv_size = read(connectfd , recv_buff , sizeof(recv_buff));
-				if(file_size >=2048)
-					fwrite(recv_buff , 1 ,  recv_size , fp);
-				else
-					fwrite(recv_buff , 1 ,  file_size , fp);
-				file_size -= sizeof(recv_buff);
-				bzero(&recv_buff , sizeof(recv_buff));
+		if(strcmp(instr[0] , "N") == 0){
+			if(fork() == 0){
+				dup2(connectfd , STDOUT_FILENO);
+				//printf("File list\n");
+				strcat(controllerIP , ONOSIP);
+				strcat(controllerIP , controllerPort);
+				printf("IP = %s\n" , controllerIP);
+				execlp("ovs-vsctl" , "set-controller" ,"set-controller" , "br0", controllerIP , NULL);
+				dup2(stdo , STDOUT_FILENO);
 			}
-			fclose(fp);
-      		printf("Received File:[%s]\n" , instr[1]);
 		}
 	}
 		
