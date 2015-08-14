@@ -99,10 +99,10 @@ void service_reply(int connectfd , int port){
 	char instr[5][MAXLINE];
 	int stdo = dup(STDOUT_FILENO);
 	char controllerIP[80] = "tcp:";
-	char FloodlightIP[] = "192.168.11.1";
-	char RyuIP[] = "192.168.11.2";
-	char ODLIP[] = "192.168.11.3";
-	char ONOSIP[] = "192.168.11.4";
+	char FloodlightIP[] = "192.168.190.149";
+	char RyuIP[] = "192.168.190.154";
+	char ODLIP[] = "192.168.190.151";
+	char ONOSIP[] = "192.168.190.152";
 	char controllerPort[] = ":6633";
 	while(1){
 		//init buff to zero
