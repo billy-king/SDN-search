@@ -123,7 +123,6 @@ void service_reply(int connectfd , int port){
 					break;
 			}
 		}
-		printf("recv_buff = %s\n" , recv_buff);
 
 		//split receive instruction with space
 		instr_ptr = strtok(recv_buff , " ");
@@ -142,6 +141,7 @@ void service_reply(int connectfd , int port){
 
 		if(strcmp(instr[0] , "F") == 0){
 			if(fork() == 0){
+				printf("Set-Controller to Floodlight\n");
 				dup2(connectfd , STDOUT_FILENO);
 				//printf("File list\n");
 				strcat(controllerIP , FloodlightIP);
@@ -154,6 +154,7 @@ void service_reply(int connectfd , int port){
 		if(strcmp(instr[0] , "R") == 0){
 			//dup2(connectfd , STDOUT_FILENO);
 			if(fork() == 0){
+				printf("Set-Controller to Ryu\n");
 				dup2(connectfd , STDOUT_FILENO);
 				//printf("File list\n");
 				strcat(controllerIP , RyuIP);
@@ -165,6 +166,7 @@ void service_reply(int connectfd , int port){
 		}
 		if(strcmp(instr[0] , "O") == 0){
 			if(fork() == 0){
+				printf("Set-Controller to ODL\n");
 				dup2(connectfd , STDOUT_FILENO);
 				//printf("File list\n");
 				strcat(controllerIP , ODLIP);
@@ -176,6 +178,7 @@ void service_reply(int connectfd , int port){
 		}
 		if(strcmp(instr[0] , "N") == 0){
 			if(fork() == 0){
+				printf("Set-Controller to ONOS\n");
 				dup2(connectfd , STDOUT_FILENO);
 				//printf("File list\n");
 				strcat(controllerIP , ONOSIP);

@@ -46,7 +46,7 @@ void get_service(FILE *fp , int serv_fd){
 	char instr[5][MAXLINE];
 	char send_buff[MAXLINE] , recv_buff[MAXLINE] , send_copy[MAXLINE];
 	while(1){
-		printf("[F]loodlight , [R]yu , [O]pendaylight O[N]OS [E]xit:\n");
+		printf("[F]loodlight , [R]yu , [O]pendaylight , O[N]OS , [E]xit:\n");
 		//init buff to zero
 		bzero(&send_buff , sizeof(send_buff));
 		bzero(&send_copy , sizeof(send_copy));
