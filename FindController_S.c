@@ -138,6 +138,18 @@ void service_reply(int connectfd , int port){
 			token_num += 1;
 			instr_ptr = strtok(NULL , " ");
 		}
+		if(strcmp(instr[0] , "X") == 0){
+			if(fork() == 0){
+				//printf("Set-Controller to Floodlight\n");
+				//dup2(connectfd , STDOUT_FILENO);
+				//printf("File list\n");
+				strcat(controllerIP , FloodlightIP);
+				strcat(controllerIP , controllerPort);
+				write(connectfd  , controllerIP , sizeof(controllerIP));
+				//execlp("ovs-vsctl" , "ovs-vsctl" ,"set-controller" , "br0", controllerIP , NULL);
+				//dup2(stdo , STDOUT_FILENO);
+			}
+		}
 
 		if(strcmp(instr[0] , "F") == 0){
 			if(fork() == 0){

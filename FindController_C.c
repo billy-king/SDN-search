@@ -27,16 +27,21 @@ int main(int argc , char *argv[]){
  		exit(1);	
  	}
  	SERVER_PORT = (u_short)atoi(argv[2]);
- 	bzero(&serv_addr , sizeof(serv_addr));
-	serv_addr.sin_family = AF_INET;
-	serv_addr.sin_addr = *((struct in_addr *)hostname->h_addr); 
-	serv_addr.sin_port = htons(SERVER_PORT);
+ 	
+	while(1){
+		printf("connect....\n");
+		bzero(&serv_addr , sizeof(serv_addr));
+		serv_addr.sin_family = AF_INET;
+		serv_addr.sin_addr = *((struct in_addr *)hostname->h_addr); 
+		serv_addr.sin_port = htons(SERVER_PORT);
 
-	serv_fd = socket(AF_INET , SOCK_STREAM , 0);
-	if(connect(serv_fd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) == -1)
-	{
-	  	fprintf(stderr,"connect error:%s" , strerror(errno));
-	  	exit(1);
+		serv_fd = socket(AF_INET , SOCK_STREAM , 0);
+		if(connect(serv_fd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) == -1){
+			sleep(3);
+			continue;
+		}
+		else
+			break;
 	}
 	get_service(stdin ,serv_fd);
 }
@@ -46,12 +51,13 @@ void get_service(FILE *fp , int serv_fd){
 	char instr[5][MAXLINE];
 	char send_buff[MAXLINE] , recv_buff[MAXLINE] , send_copy[MAXLINE];
 	while(1){
-		printf("[F]loodlight , [R]yu , [O]pendaylight , O[N]OS , [E]xit:\n");
+		printf("Find Controller...\n");
 		//init buff to zero
 		bzero(&send_buff , sizeof(send_buff));
 		bzero(&send_copy , sizeof(send_copy));
 		bzero(&recv_buff , sizeof(recv_buff));
-		while(fgets(send_buff , MAXLINE , fp) != NULL){
+		//while(1){
+			strcpy(send_buff , "X");
 			strcpy(send_copy , send_buff);
 
 			//split receive instruction with space
@@ -63,11 +69,11 @@ void get_service(FILE *fp , int serv_fd){
 				len = strlen(instr[token_num]);
 				if(len > 0 && instr[token_num][len - 1] == '\n')
 					instr[token_num][len - 1] = '\0';
-				printf("%s\n" , instr[token_num]);
+				//printf("%s\n" , instr[token_num]);
 				token_num += 1;
 				instr_ptr = strtok(NULL , " ");
 			}
-			if(strcmp(instr[0] , "F") == 0){
+			if(strcmp(instr[0] , "X") == 0){
 				write(serv_fd  , send_buff , sizeof(send_buff));
 				bzero(&send_buff , sizeof(send_buff));
 				if((n = read(serv_fd , recv_buff , MAXLINE)) == 0){
@@ -75,6 +81,7 @@ void get_service(FILE *fp , int serv_fd){
 					exit(0);
 				}
 				fputs(recv_buff , stdout);
+				execlp("ovs-vsctl" , "ovs-vsctl" ,"set-controller" , "br0", recv_buff , NULL);
 				bzero(&recv_buff , sizeof(recv_buff));
 				break;
 			}
@@ -126,7 +133,7 @@ void get_service(FILE *fp , int serv_fd){
 				close(serv_fd);
 				exit(1);
 			}
-		}
+		//}
 	}
 
 
