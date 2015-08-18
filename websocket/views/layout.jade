@@ -1,7 +1,17 @@
 doctype html
 html
   head
+    meta(charset='utf-8')
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    //- Bootstrap Core CSS
+    link(rel='stylesheet' href='/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet' href='/bootstrap/dist/css/bootstrap-theme.min.css')
+    link(rel='stylesheet' href='/font-awesome/css/font-awesome.min.css')
+    //- JQuery
+    script(type='text/javascript' src='/jquery/dist/jquery.min.js')
+    //- Bootstrap Core Javascript
+    script(type='text/javascript' src='/bootstrap/dist/js/bootstrap.min.js')
+    block js
   body
     block content

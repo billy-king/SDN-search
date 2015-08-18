@@ -1,5 +1,9 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+
+block js
+  script(type = 'text/javasrcipt').
+    $(function(){
+        getPostsAjax();
+      })
