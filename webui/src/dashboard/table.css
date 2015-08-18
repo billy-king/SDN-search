@@ -1,0 +1,76 @@
+body{
+	margin:0 0 0 0;
+	background-color: #E5FFCD;
+	font-size:1em;
+	background: #000 url('../image/bg.jpg') center center fixed no-repeat;
+	-moz-background-size: cover;
+	background-size: cover;
+}
+.class_div_base{
+	margin:10px 10px 10px 10px ;
+	
+	
+	background-color:#777777;
+	background-size: 50px 95%;
+    background-repeat: no-repeat;
+	
+
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	
+	font-size:1em;
+	color:#ffffff;
+	box-shadow:8px 8px 5px 1px #aaaaaa;
+}
+.pb_cpu{
+	height:20px;
+	width:98%;
+	font-size:1em;
+	background: #eeeeee;
+}
+.pb_mem{
+	height:20px;
+	width:98%;
+	font-size:1em;
+	background: #eeeeee;
+}
+.pb_rx{
+	height:20px;
+	width:98%;
+	font-size:1em;
+	background: #eeeeee;
+}
+.pb_tx{
+	height:20px;
+	width:98%;
+	font-size:1em;
+	background: #eeeeee;
+}
+
+.ui-progressbar {
+	position: relative;
+}
+.progress-label {
+	position: absolute;
+	left: 50%;
+	top: 4px;
+	font-weight: bold;
+	text-shadow: 1px 1px 0 #fff;
+}
+.tablestyle_def_color_th{
+	background-color: #5592D3;
+	color: #ffffff;
+	padding : 3px;
+}
+.tablestyle_def_color_tr{
+	background-color: #C5DEF3;
+	padding : 3px;
+}
+.tablestyle_def_color_tr2{
+	background-color: #EBF4FB;
+	padding : 3px;
+}
+.tablestyle_def_hover{
+	background-color: #FFCDE5;
+}
