@@ -1,0 +1,30 @@
+nav.navbar.navbar-inverse.navbar-fixed-top
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#navbar", aria-expanded="false", aria-controls="navbar")
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href="#") Search
+        #navbar.navbar-collapse.collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href="#") Dashboard
+            li
+              button.btn.btn-primary.btn-lg(type="button", data-toggle="modal", data-target=".bs-example-modal-lg") Settings
+            li
+              a(href="#") Profile
+            li
+              a(href="#") Help
+          form.navbar-form.navbar-right
+            input.form-control(type="text", placeholder="Search...")
+    .modal.fade.bs-example-modal-lg(tabindex="-1", role="dialog", aria-labelledby="myLargeModalLabel")
+      .modal-content
+        .modal-header
+          button.close(type="button", data-dismiss="modal", aria-label="Close")
+            span(aria-hidden="true") &#215;
+          h4#myLargeModalLabel.modal-title Large modal
+        .modal-body
+          | ...
+    .container-fluid

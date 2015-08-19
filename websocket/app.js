@@ -5,9 +5,6 @@ var app           = express();
 
 require('./middleware')(app);
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
 
 
 // view engine setup
@@ -21,8 +18,12 @@ app.set('view engine', 'jade');
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.static(__dirname + '/bower_components'));
 
-app.use('/', routes);
-app.use('/users', users);
+app.get('/', function(req, res){
+  res.render('index.jade');
+});
+app.get('/floodlight', function(req, res){
+  res.render('floodlight.jade');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

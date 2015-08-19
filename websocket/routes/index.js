@@ -5,5 +5,9 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+/* GET users listing. */
+router.get('/floodlight', function(req, res, next) {
+  res.render('floodlight.jade');
+});
 
 module.exports = router;
