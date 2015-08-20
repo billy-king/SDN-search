@@ -1,5 +1,26 @@
 extends layout
 
-block content
-
 block js
+
+block content
+  .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+    h1.page-header Controller
+    .row.placeholders
+      .col-xs-6.col-sm-3.placeholder
+        a(href="/floodlight")
+          img.img-responsive(src="http://www.projectfloodlight.org/wp-content/uploads/2013/03/project_floodlight.png", width="200", height="200", alt="Generic placeholder thumbnail")
+          h4 Floodlight
+      .col-xs-6.col-sm-3.placeholder
+        a(href="/ryu")
+          img.img-responsive(href="/ryu",src="http://osrg.github.io/ryu/css/images/LogoSet02.png", width="200", height="200", alt="Generic placeholder thumbnail")
+          h4 Ryu
+      .col-xs-6.col-sm-3.placeholder
+        a(href="/opendaylight")
+          img.img-responsive(href="/opendaylight",src="http://americanlivewire.com/wp-content/uploads/2014/02/OpenDaylight_logo-620x308.png", width="200", height="200", alt="Generic placeholder thumbnail")
+          h4 Opendaylight
+      .col-xs-6.col-sm-3.placeholder
+        a(href="/onos")
+          img.img-responsive(href="/onos",src="https://assets.sdncentral.com/on-lab-open-network-operating-system-onos-image", width="200", height="200", alt="Generic placeholder thumbnail")
+          h4 ONOS
+    h1.page-header Switch
+    .row.placeholders

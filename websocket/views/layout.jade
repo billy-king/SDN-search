@@ -12,15 +12,22 @@ html(lang="en")
     //- Bootstrap core CSS
     link(rel='stylesheet' href='/bootstrap/dist/css/bootstrap.min.css')
     link(rel='stylesheet' href='/bootstrap/dist/css/bootstrap-theme.min.css')
+    link(rel='stylesheet' href='/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css')
     link(rel='stylesheet' href='/font-awesome/css/font-awesome.min.css')
     //- Custom CSS
-    link(rel='stylesheet' href='/stylesheets/main.css')
     link(rel='stylesheet' href='/stylesheets/dashboard.css')
-
+    //- jQuery
+    script(type='text/javascript' src='/jquery/dist/jquery.min.js')
+    //- Bootstrap Core JavaScript
+    script(type='text/javascript' src='/bootstrap-switch/dist/js/bootstrap-switch.min.js')
+    script(type='text/javascript' src='/bootstrap/dist/js/bootstrap.min.js')
+    //- Custom JS
+    script(type='text/javascript' src='/javascripts/main.js')
     block js
 
   body
     include header
     include slidebar
     block content
+
 

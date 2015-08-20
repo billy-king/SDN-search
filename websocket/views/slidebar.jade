@@ -2,11 +2,22 @@
   .col-sm-3.col-md-2.sidebar
     ul.nav.nav-sidebar
       li.active
-        a(href="#")
+        a(href="/")
           | Overview
           span.sr-only (current)
       li
-        a(href="#") Controller List
+        a(href="#" data-toggle="collapse" data-target="#controller-list" class="collapsed" aria-expanded="false")
+          | Controller List
+          i.fa.fa-fw.fa-caret-down
+        ul(id = "controller-list" , class="collapse")
+          li
+            a(href="/floodlight") Floodlight
+          li
+            a(href="/ryu") Ryu
+          li
+            a(href="/opendaylight") Opendaylight
+          li
+            a(href="/onos") ONOS
       li
         a(href="#") Switch List
       li
