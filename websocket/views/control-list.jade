@@ -5,6 +5,9 @@ block js
 block content
   .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
     h1.page-header Controller
+      button(class="btn btn-success col-md-offset-8" data-toggle="modal" data-target=".controller-add")
+        .glyphicon.glyphicon-plus
+        | Add
     .row.placeholders
       .table-responsive
         table.table.table-striped
@@ -13,9 +16,11 @@ block content
               th On/Off
               th ID
               th Controller
-              th IP/Port
+              th DomainIP
+              th Port
               th Switch #
               th CPU Loading
+              th Action
           tbody
             tr
               td
@@ -30,13 +35,18 @@ block content
                 a(href="/floodlight")
                   | Floodlight
               td
-                | 192.168.1.15/6633
+                | 192.168.1.15
+              td
+                | 6633
               td
                 | 3
               td
                 .progress
-                  .progress-bar.progress-bar-success(role="progressbar", aria-valuenow="20", aria-valuemin="0", aria-valuemax="100", style="width: 28%")
+                  .progress-bar.progress-bar-danger(role="progressbar", aria-valuenow="20", aria-valuemin="0", aria-valuemax="100", style="width: 28%")
                     | 28%
+              td
+                button.btn.btn-success
+
             tr
               td
                 .btn-group.btn-toggle
@@ -50,10 +60,14 @@ block content
                 a(href="/floodlight")
                   | Floodlight
               td
-                | 192.168.1.15/6633
+                | 192.168.1.15
+              td
+                | 6633
               td
                 | 3
               td
                 .progress
-                  .progress-bar.progress-bar-success(role="progressbar", aria-valuenow="20", aria-valuemin="0", aria-valuemax="100", style="width: 28%")
+                  .progress-bar.progress-bar-danger(role="progressbar", aria-valuenow="20", aria-valuemin="0", aria-valuemax="100", style="width: 28%")
                     | 28%
+              td
+                button.btn.btn-success
