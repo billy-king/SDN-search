@@ -3,6 +3,9 @@ module.exports = function(app){
   app.get('/', function(req, res){
     res.render('index.jade');
   });
+  app.get('/control-list' , function(req, res){
+    res.render('control-list.jade');
+  })
   app.get('/floodlight', function(req, res){
     res.render('controller/floodlight.jade');
   });
